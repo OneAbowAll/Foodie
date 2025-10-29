@@ -18,14 +18,25 @@ export function RecipePage()
         <button onClick={()=>navigate('/')}>«</button>
         {
         (recipe !== undefined)?
-        <div>
-            <p>{recipe.id} | {recipe.title}</p>
-            <p><b>Ingredients: </b> {recipe.ingredients} </p>
-            <p>❤️{recipe.likes} </p>
-            <hr/>
-            <div>{recipe.method}</div>
-            <hr/>
-            <div>{date.toDateString()}</div>
+        <div className="recipe-page">
+            <div className="container recipe-method">
+                <h1>{recipe.id} | {recipe.title}</h1>
+                <hr/>
+                <div>{recipe.method}</div>
+                
+                <div className="footer">
+                    <hr/>
+                    {date.toDateString()}
+                </div>
+            </div>
+
+            <div className="container recipe-info">
+                <p><b>Ingredients: </b><br/>{recipe.ingredients} </p>
+                <div className="footer">
+                    <hr/>
+                    <p>❤️{recipe.likes} </p>
+                </div>
+            </div>
         </div>
         :
         <p>No object with id:{params.id} was found.</p>

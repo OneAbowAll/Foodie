@@ -8,13 +8,13 @@ export function RecipeCard({recipe} : {recipe: Recipe})
     const date = new Date();
     date.setTime(Number.parseInt(recipe.dateOfCreation));
 
-    return <div className='card' onClick={()=>navigate(`/${recipe.id}`)}>
+    return <div className='container recipe-card' onClick={()=>navigate(`/${recipe.id}`)}>
         <p>{recipe.id} | {recipe.title}</p>
         <p><b>Ingredients: </b> {recipe.ingredients} </p>
         <p>❤️{recipe.likes} </p>
         <hr/>
         <div>{recipe.method}</div>
-        <hr/>
-        <div>{date.toDateString()}</div>
+        
+        <div className="footer"><hr/>{date.toDateString()}</div>
     </div>
 }

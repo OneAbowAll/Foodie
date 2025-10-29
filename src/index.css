@@ -1,5 +1,6 @@
 *{
   font-family: "Arvo", serif, sans-serif, system-ui;
+  box-sizing: border-box;
 }
 
 :root {
@@ -30,9 +31,26 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  place-items: start;
   min-width: 320px;
   min-height: 100vh;
+}
+
+.container
+{
+  position: relative;
+  background-color: #414833;
+
+  min-width: 140px;
+  min-height: 180px;
+
+  border: 1px solid #b6ad90;
+  border-radius: 4px;
+  
+  padding: 10px 10px 10px 10px;
+  margin: 10px 10px 10px 10px;  
+
+  box-shadow: rgb(0, 0, 0, 20%) 5px 5px;
 }
 
 h1 {
@@ -89,26 +107,50 @@ input[type="text"]:focus
 {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;  
 }
 
-.card
-{ 
-  background-color: #414833;
-
-  min-width: 140px;
-  min-height: 180px;
-
-  border: 1px solid #b6ad90;
-  border-radius: 4px;
-  
-  padding: 10px 10px 10px 10px;
-  margin: 10px 10px 10px 10px;  
-
-  box-shadow: rgb(0, 0, 0, 20%) 5px 5px;
+.recipe-card
+{
+  min-width: 220px;
+  min-height: 300px;
 }
 
-.card:hover {
-
+.recipe-card:hover
+{
   border: 1px solid rgb(160, 160, 160);
   background-color: #656d4a;
+
+  cursor: pointer;
+}
+
+.recipe-page
+{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.recipe-method
+{
+  position: relative;
+  box-sizing: border-box;
+
+  min-width: 600px;
+  min-height: 400px;
+}
+
+.recipe-info
+{
+  position: relative;
+}
+
+.footer
+{
+  position: absolute;
+  
+  width: 100%;
+  padding: inherit;
+  bottom: 12px;
+  left: 0px;
 }
