@@ -50,7 +50,7 @@ export function RecipeBoard()
     <button onClick={handleClick}>Add</button>
   */
   return (
-    <div className="container">
+    <div className="container recipe-board">
         <h1>Foodie</h1>
         <div>
           <input type="text" ref={searchInput} onChange={updateSearch} placeholder="Search recipe..."></input>
