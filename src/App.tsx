@@ -1,12 +1,17 @@
 import { RecipeBoard } from './RecipeBoard'
 import { Header } from './Header'
 import './App.css'
+import { RecipeContext } from './RecipeContext'
+import { useDb } from './Hooks';
 
 function App() {
+  const [db ] = useDb();
+
   return (
     <>
-    <Header/>
-    <RecipeBoard/>
+    <RecipeContext.Provider value={db}>
+      <RecipeBoard/>
+    </RecipeContext.Provider>
     </>
   )
 }

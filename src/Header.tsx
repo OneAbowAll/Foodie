@@ -1,5 +1,5 @@
 
-export function Header()
+export function Header({ onSearch, onSortChange } : { onSearch: (search: string) => void, onSortChange: (sortType: string)=>void })
 {
     return (
         <div className="container header">
