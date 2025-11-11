@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { RecipeCard } from "./RecipeCard";
 import { RecipeContext } from "./RecipeContext";
 import { Header } from "./Header";
@@ -12,19 +12,6 @@ export function RecipeBoard()
   const [search, setSearch] = useState("");
   const [sortType, setSortType] = useState("latest");
 
-  const searchInput = useRef<HTMLInputElement>(null);
-  const sortSelect = useRef<HTMLSelectElement>(null);
-  
-  const updateSearch = () =>
-  {
-    setSearch(searchInput.current!.value.trim());
-  };
-  
-  const updateSortType = ()=>
-  {
-    setSortType(sortSelect.current!.value);
-  };
-
   /*
     <p>Add new Recipe</p>
     <input type="text" ref={nameInput} placeholder='Recipe title...'/><br/>
@@ -34,19 +21,8 @@ export function RecipeBoard()
   */
   return (
     <>
-      <Header onSearch={} />
+      <Header onSearch={setSearch} onSortChange={setSortType} />
       <div className="container recipe-board">
-          <h1>Foodie</h1>
-          <div>
-            <input type="text" ref={searchInput} onChange={updateSearch} placeholder="Search recipe..."></input>
-
-            <select name="sort" ref={sortSelect} onChange={updateSortType}>
-              <option value="latest">Latest</option>
-              <option value="likes">Likes</option>
-            </select>
-          </div>
-
-          <hr/>
           {
           (sortType === "latest")?
             <div id="board">
