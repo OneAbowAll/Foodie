@@ -204,17 +204,42 @@ select:focus
 {
     position:sticky;
     top:0;
-    padding: 8px 0px 8px 0px;
+    padding: 8px 8px 8px 14px;
     z-index: 10;
 
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.header > *
+{
+  margin: auto 0px;
+  font-size: medium;
 }
 
 .header > h2
 {
   padding: 0px;
-  margin: 0px;
+  margin: auto 0px;
+  font-size: xx-large;
+}
+
+.header > div > input[type="text"]
+{
+  min-height: 40px;
+  min-width: 220px;
+
+  font-size: medium;
+}
+
+.header > div > select
+{
+  min-height: 40px;
+  min-width: 100px;
+  
+  font-size: medium;
 }
 
 .footer
