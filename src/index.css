@@ -48,6 +48,7 @@ body {
   background-color: #414833;
 
   min-width: 140px;
+  max-width: 100vw;
 
   border: 1px solid #b6ad90;
   border-radius: 4px;
@@ -205,6 +206,15 @@ select:focus
     top:0;
     padding: 8px 0px 8px 0px;
     z-index: 10;
+
+    display: flex;
+    justify-content: space-around;
+}
+
+.header > h2
+{
+  padding: 0px;
+  margin: 0px;
 }
 
 .footer

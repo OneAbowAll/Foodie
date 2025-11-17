@@ -3,7 +3,7 @@ import { RecipeCard } from "./RecipeCard";
 import { RecipeContext } from "./RecipeContext";
 import { Header } from "./Header";
 
-import FindAndRankAll from "./Utilities";
+import FindAndRankAll from "../Utilities";
 
 export function RecipeBoard()
 {

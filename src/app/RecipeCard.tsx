@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import type { Recipe } from "./data/Recipe";
+import type { Recipe } from "../data/Recipe";
 
 export function RecipeCard({recipe} : {recipe: Recipe})
 {

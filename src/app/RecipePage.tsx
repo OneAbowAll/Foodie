@@ -1,5 +1,5 @@
-import { useDb } from "./Hooks";
 import { useNavigate, useParams } from "react-router";
+import { useDb } from "../Hooks";
 
 export function RecipePage()
 {
