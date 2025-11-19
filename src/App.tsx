@@ -39,8 +39,8 @@ function App() {
           :
           <Route>
             <Route path="/" element={<LoginPage/>}/>
-            <Route path="login" element={<LoginPage/>}/>
-            <Route path="signin" element={<SignUp/>} />
+            <Route path="/login" element={<LoginPage/>}/>
+            <Route path="/signup" element={<SignUp/>} />
           </Route>
           }
         </Routes>

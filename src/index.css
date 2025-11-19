@@ -251,3 +251,36 @@ select:focus
   bottom: 12px;
   left: 0px;
 }
+
+.text-outline
+{  
+  font-size: 4em;
+  line-height: 0px;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+}
+
+.auth-container
+{
+  padding: 20px 20px 20px 20px;
+}
+
+.auth-container > p
+{
+  margin: 0px;
+}
+
+
+.auth-container > input
+{
+  min-height: 40px;
+  min-width: 220px;
+
+  font-size: medium;
+}
+
+.error
+{
+  color: rgb(243, 81, 81);
+  font-weight: 400;
+}

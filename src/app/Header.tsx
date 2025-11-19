@@ -39,8 +39,8 @@ export function Header({ onSearch, onSortChange } : { onSearch: (search: string)
       </div>
 
       <div>
+        {userSession?.displayName}<span> | </span>
         {userSession?.email}
-        {userSession?.displayName}
         <button onClick={handleLogOut} >Log Out</button>
       </div>
     </div>
