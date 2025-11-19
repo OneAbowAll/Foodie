@@ -33,4 +33,22 @@ function FindAndRankAll(from:Recipe[], titleToMatch:string, filter: ((rank: numb
     return result.sort((a, b)=>b[1]-a[1]).map((res)=>res[0]);
 }
 
+export const AnimateCSS = (element: HTMLElement, animation: string, prefix = 'animate__') =>
+  // We create a Promise and return it
+  new Promise((resolve) => {
+    const animationName = `${prefix}${animation}`;
+
+    element.classList.add(`${prefix}animated`, animationName);
+
+    // When the animation ends, we clean the classes and resolve the Promise
+    function handleAnimationEnd(event: Event) {
+      event.stopPropagation();
+      element.classList.remove(`${prefix}animated`, animationName);
+      resolve('Animation ended');
+    }
+
+    element.addEventListener('animationend', handleAnimationEnd, {once: true});
+  });
+
 export default FindAndRankAll;
+

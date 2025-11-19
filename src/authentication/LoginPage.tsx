@@ -2,6 +2,9 @@ import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useContext, useRef, useState } from "react";
 import { FirebaseContext } from "../firebase/FirebaseContext";
 import { useNavigate } from "react-router";
+import { AnimateCSS } from "../Utilities";
+
+import "animate.css";
 
 export function LoginPage()
 {
@@ -12,6 +15,8 @@ export function LoginPage()
     const emailInput = useRef<HTMLInputElement>(null);
     const passwordInput = useRef<HTMLInputElement>(null);
 
+    const errorElement = useRef<HTMLParagraphElement>(null);
+
     const handleSignIn = ()=>
     {
         signInWithEmailAndPassword(
@@ -20,7 +25,10 @@ export function LoginPage()
             passwordInput.current!.value
         )
         .then(()=>navigate("/"))
-        .catch((error) => setError(error.message));
+        .catch((error) => {
+            AnimateCSS(errorElement.current!, "headShake");
+            setError(error.message)
+        });
     }
 
     return(
@@ -33,7 +41,7 @@ export function LoginPage()
             <p>Dont have an account? <a onClick={()=>navigate("/signup")}>Sign Up</a></p>
         </div>
         <div className="container auth-container" hidden={(error==="") ? true : false}>
-            <p className="error">
+            <p className="error" ref={errorElement}>
                 {error}
             </p>
         </div>

@@ -270,7 +270,6 @@ select:focus
   margin: 0px;
 }
 
-
 .auth-container > input
 {
   min-height: 40px;
@@ -279,8 +278,13 @@ select:focus
   font-size: medium;
 }
 
+.animate__animated.animate__headShake{
+  --animate-duration: 2s;
+}
+
+
 .error
 {
   color: rgb(243, 81, 81);
-  font-weight: 400;
+  font-weight: 600;
 }

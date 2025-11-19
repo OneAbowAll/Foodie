@@ -1,7 +1,10 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useContext, useRef, useState } from "react";
 import { FirebaseContext } from "../firebase/FirebaseContext";
 import { useNavigate } from "react-router";
+import { AnimateCSS } from "../Utilities";
+
+import "animate.css";
 
 export function SignUp()
 {
@@ -13,11 +16,14 @@ export function SignUp()
     const emailInput = useRef<HTMLInputElement>(null);
     const passwordInput = useRef<HTMLInputElement>(null);
 
+    const errorElement = useRef<HTMLParagraphElement>(null);
+
     const handleSignIn = ()=>
     {
         const username = usernameInput.current!.value;
         if(username.trim() === "" || username.length < 6)
         {
+            AnimateCSS(errorElement.current!, "headShake");
             setError("Provided username is not valid, must be at least 6 chars.");
             return;
         }
@@ -34,7 +40,10 @@ export function SignUp()
             )
             .then(() => navigate("/"));
         })
-        .catch((error) => setError(error.message));
+        .catch((error) => {
+            AnimateCSS(errorElement.current!, "headShake");
+            setError(error.message)
+        });
     }
 
     return(
@@ -47,8 +56,8 @@ export function SignUp()
             <button onClick={handleSignIn}>Sign Up</button><br/>
             <p>Already have an account? <a onClick={()=>navigate("/login")}>Log In</a></p>
         </div>
-        <div className="container" hidden={(error==="") ? true : false}>
-            <p className="error">
+        <div className="container auth-container" hidden={(error==="") ? true : false}>
+            <p className="error" ref={errorElement}>
                 {error}
             </p>
         </div>
