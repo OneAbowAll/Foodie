@@ -1,7 +1,7 @@
 import type { FirebaseApp } from "firebase/app";
 import { Firestore, getFirestore } from "firebase/firestore";
 
-class FirestoreDB
+class RecipeDB
 {
     db: Firestore
     constructor(app: FirebaseApp)
@@ -9,3 +9,5 @@ class FirestoreDB
         this.db = getFirestore(app)
     }
 }
+
+export default RecipeDB;

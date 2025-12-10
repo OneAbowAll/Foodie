@@ -1,16 +1,38 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RecipeCard } from "./RecipeCard";
-import { RecipeContext } from "./RecipeContext";
 import { Header } from "./Header";
 
-import FindAndRankAll from "../Utilities";
+import type { Recipe } from "../data/Recipe";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { FirebaseContext } from "../firebase/FirebaseContext";
 
 export function RecipeBoard()
 {
-  const db = useContext(RecipeContext);
+  const firebase = useContext(FirebaseContext);
+  const db = firebase.db;
 
+  const [recipeList, setRecipList] = useState<Recipe[]>([] as Recipe[]);
   const [search, setSearch] = useState("");
   const [sortType, setSortType] = useState("latest");
+
+  useEffect(()=>{
+    const collectionRef = collection(db, "Recipes");
+    const q = query(collectionRef, orderBy('dateOfCreation', 'desc'))
+
+    onSnapshot(q, (snapshot)=>{
+      const result: Recipe[] = [];
+      snapshot.forEach((doc)=>{
+        const data = doc.data();
+        result.push({
+          id: doc.id,
+          ...data
+        } as Recipe)
+      })
+
+      setRecipList(result);
+    });
+
+  }, [db, sortType]);
 
   /*
     <p>Add new Recipe</p>
@@ -20,7 +42,20 @@ export function RecipeBoard()
     <button onClick={handleClick}>Add</button>
   */
   return (
-    <>
+    <><Header onSearch={setSearch} onSortChange={setSortType} />
+      <div className="container recipe-board">
+          <div id="board">
+          {
+            recipeList.map((recipe)=><RecipeCard key={recipe.id} recipe={recipe}/>)
+          }
+        </div>
+      </div>
+    </>
+  );
+}
+
+/*
+<>
       <Header onSearch={setSearch} onSortChange={setSortType} />
       <div className="container recipe-board">
           {
@@ -50,5 +85,4 @@ export function RecipeBoard()
           }
       </div>
     </>
-  );
-}
+*/

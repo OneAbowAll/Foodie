@@ -1,10 +1,12 @@
+import type { Timestamp } from "firebase/firestore";
+
 export interface Recipe
 {
-    id: number;
+    id: string;
     title: string;
-    ingredients: string;
-    method: string;
+    ingredients: string[];
+    method: string[];
 
     likes: number;
-    dateOfCreation: string;
+    dateOfCreation: Timestamp;
 }

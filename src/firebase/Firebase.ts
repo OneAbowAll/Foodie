@@ -2,10 +2,12 @@
 import { initializeApp, type FirebaseApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, type Auth } from "firebase/auth";
 import { firebaseConfig } from "./FirebaseConfig";
+import { getFirestore, type Firestore } from "firebase/firestore";
 
 // Initialize Firebase
 export default class Firebase
 {
+  db: Firestore;
   app: FirebaseApp;
   auth: Auth;
 
@@ -13,6 +15,7 @@ export default class Firebase
   {
     this.app = initializeApp(firebaseConfig);
     this.auth = getAuth(this.app);
+    this.db = getFirestore(this.app);
   }
 
   TryLogin(email: string, password: string) : boolean

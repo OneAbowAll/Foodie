@@ -1,17 +1,31 @@
 import { useNavigate, useParams } from "react-router";
 import { useDb } from "../Hooks";
+import { useContext, useEffect, useState } from "react";
+import { FirebaseContext } from "../firebase/FirebaseContext";
+import { collection, doc, getDoc, onSnapshot, orderBy, query } from "firebase/firestore";
+import type { Recipe } from "../data/Recipe";
 
 export function RecipePage()
 {
-    const [, , , findRecipe] = useDb();
+    const firebase = useContext(FirebaseContext);
     const navigate = useNavigate();
 
     const params = useParams();
-    const recipe = findRecipe(Number.parseInt(params.id!));
-    const date = new Date();
+    const [recipe, setRecipe] = useState<Recipe | undefined>(undefined);
 
-    if(recipe)
-        date.setTime(Number.parseInt(recipe.dateOfCreation));
+    useEffect(()=>{
+        const fetchRecipe = async () =>
+        {
+            const db = firebase.db;
+            const docRef = doc(db, "Recipes", params.id!);
+            const docSnap = await getDoc(docRef);
+
+            if(docSnap.exists())
+                setRecipe(docSnap.data() as Recipe);
+        }
+
+        fetchRecipe();
+    });
 
   return (
     <div>
@@ -26,7 +40,7 @@ export function RecipePage()
                 
                 <div className="footer">
                     <hr/>
-                    {date.toDateString()}
+                    {recipe.dateOfCreation.toDate().toDateString()}
                 </div>
             </div>
 
