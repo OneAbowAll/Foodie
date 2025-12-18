@@ -1,4 +1,4 @@
 import { createContext } from "react";
-import Firebase from "./Firebase";
+import Firebase, { firebaseApp } from "./Firebase";
 
-export const FirebaseContext = createContext<Firebase>(new Firebase());
+export const FirebaseContext = createContext<Firebase>(firebaseApp);

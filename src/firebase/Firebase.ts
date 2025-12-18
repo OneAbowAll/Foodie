@@ -33,3 +33,5 @@ export default class Firebase
     return false;
   }
 }
+
+export const firebaseApp = new Firebase();
