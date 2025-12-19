@@ -12,6 +12,7 @@ import { RecipePage } from './app/RecipePage';
 import { RecipeBoard } from './app/RecipeBoard';
 import { useLocalStorage } from './Hooks';
 import { AuthContext } from './authentication/AuthContext';
+import { RecipeCreate } from './app/RecipeCreate';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
           <Route element={<AppLayout/>}>
             <Route index path="/" element={<RecipeBoard/>}/>
             <Route index path="/:id" element={<RecipePage/>}/>
+            <Route index path="/create" element={<RecipeCreate/>}/>
           </Route>
           :
           <Route>

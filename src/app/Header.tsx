@@ -3,7 +3,7 @@ import { FirebaseContext } from "../firebase/FirebaseContext";
 import { AuthContext } from "../authentication/AuthContext";
 import { signOut } from "firebase/auth";
 
-export function Header({ onSearch, onSortChange } : { onSearch: (search: string) => void, onSortChange: (sortType: string)=>void })
+export function Header({ onSearch, onSortChange } : { onSearch: (search: string) => void, onSortChange: (sortType: string) => void })
 {
   const firebase = useContext(FirebaseContext);
   const userSession = useContext(AuthContext);

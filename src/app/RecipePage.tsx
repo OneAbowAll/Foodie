@@ -1,33 +1,14 @@
 import { useNavigate, useParams } from "react-router";
-import { useDb } from "../Hooks";
-import { useContext, useEffect, useState } from "react";
-import { FirebaseContext } from "../firebase/FirebaseContext";
-import { collection, doc, getDoc, onSnapshot, orderBy, query } from "firebase/firestore";
-import type { Recipe } from "../data/Recipe";
+import { useRecipe } from "./RecipeHooks";
 
 export function RecipePage()
 {
-    const firebase = useContext(FirebaseContext);
     const navigate = useNavigate();
 
     const params = useParams();
-    const [recipe, setRecipe] = useState<Recipe | undefined>(undefined);
-
-    useEffect(()=>{
-        const fetchRecipe = async () =>
-        {
-            const db = firebase.db;
-            const docRef = doc(db, "Recipes", params.id!);
-            const docSnap = await getDoc(docRef);
-
-            if(docSnap.exists())
-                setRecipe(docSnap.data() as Recipe);
-        }
-
-        fetchRecipe();
-    });
-
-  return (
+    const [recipe] = useRecipe(params.id!);
+    
+    return (
     <div>
         <button onClick={()=>navigate('/')}>«</button>
         {
@@ -56,5 +37,5 @@ export function RecipePage()
         <p>No object with id:{params.id} was found.</p>
         }
     </div>
-  );
+    );
 }

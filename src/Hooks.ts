@@ -29,11 +29,6 @@ export function useLocalStorage<T>(
     return [item, setItem];
 }
 
-export function useRecipe(recipeId : string)
-{
-
-}
-
 export function useDb() : [Recipe[], (newRecipe: Recipe) => void, (modifiedRecipe: Recipe)=>void, (recipeId: number) => Recipe | undefined]
 {
     const [nextId, setNewId] = useLocalStorage<number>("id", 2);
