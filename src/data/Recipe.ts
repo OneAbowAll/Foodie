@@ -10,6 +10,8 @@ export interface Recipe
 
     likes: number;
     dateOfCreation: Timestamp;
+    
+    author: string;
 }
 
 export interface RecipeDb
@@ -20,4 +22,6 @@ export interface RecipeDb
 
     likes: number;
     dateOfCreation: Timestamp;
+
+    author: string;
 }

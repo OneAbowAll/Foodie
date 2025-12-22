@@ -14,22 +14,35 @@ export function RecipePage()
         {
         (recipe !== undefined)?
         <div className="recipe-page">
-            <div className="container recipe-method">
-                <h1>{recipe.id} | {recipe.title}</h1>
+            <div className="container recipe-main">
+                <h1>{recipe.title}</h1>
                 <hr/>
-                <div>{recipe.method}</div>
+                <div>
+                <ol >
+                    {recipe.method.map((value)=>
+                    <li className="recipe-method">{value}</li>
+                )}</ol> 
+                </div>
                 
                 <div className="footer">
                     <hr/>
-                    {recipe.dateOfCreation.toDate().toDateString()}
+                    {recipe.dateOfCreation.toDate().toDateString()} | Made by: {recipe.author}
                 </div>
             </div>
 
             <div className="container recipe-info">
-                <p><b>Ingredients: </b><br/>{recipe.ingredients} </p>
+                <div><b>Ingredients: </b><br/>
+                <ul id="stringlist-list">
+                    {recipe.ingredients.map((value)=>
+                    <li>{value}</li>
+                )}</ul> 
+                </div>
                 <div className="footer">
                     <hr/>
-                    <p>❤️{recipe.likes} </p>
+                    <div className="recipepage-likes">
+                        <p>❤️{recipe.likes}</p>
+                        <button>❤️</button>
+                    </div>
                 </div>
             </div>
         </div>

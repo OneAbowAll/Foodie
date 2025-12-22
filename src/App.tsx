@@ -1,4 +1,5 @@
 import './App.css'
+import './Recipes.css'
 import { useContext } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { onAuthStateChanged, type User } from 'firebase/auth';
@@ -13,6 +14,7 @@ import { RecipeBoard } from './app/RecipeBoard';
 import { useLocalStorage } from './Hooks';
 import { AuthContext } from './authentication/AuthContext';
 import { RecipeCreate } from './app/RecipeCreate';
+import { ProfilePage } from './app/ProfilePage';
 
 function App() {
 
@@ -37,6 +39,7 @@ function App() {
             <Route index path="/" element={<RecipeBoard/>}/>
             <Route index path="/:id" element={<RecipePage/>}/>
             <Route index path="/create" element={<RecipeCreate/>}/>
+            <Route index path="/account" element={<ProfilePage/>}/>
           </Route>
           :
           <Route>

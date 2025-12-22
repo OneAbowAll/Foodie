@@ -1,9 +1,9 @@
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import { useRecipe } from "./RecipeHooks";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { RecipeDb } from "../data/Recipe";
 import { Timestamp } from "firebase/firestore";
-import { StringList } from "./IngredientList";
+import { StringList } from "./StringList";
 
 export function RecipeCreate()
 {
@@ -14,6 +14,14 @@ export function RecipeCreate()
     const [steps, setSteps] = useState<string[]>([]);
 
     const titleInput = useRef<HTMLInputElement>(null);
+
+    useEffect(()=>{
+        if(recipe != undefined)
+            navigate(`/${recipe?.id}`)
+
+        console.log(recipe);
+
+    }, [navigate, recipe]);
 
     const createNewRecipe = ()=>
     {
@@ -26,8 +34,8 @@ export function RecipeCreate()
             dateOfCreation: Timestamp.now()
         }
 
+        console.log("creando...");
         createNew(newRecipe);
-        navigate(`/${recipe?.id}`)
     };
 
     const addIngredient = (newIngredient: string) =>{
@@ -48,6 +56,7 @@ export function RecipeCreate()
 
     return (
     <div className="container recipe-create">
+        <button onClick={()=>navigate("/")}>«</button>
         <h3>Recipe Title</h3>
         <input type="text" id="title" ref={titleInput}></input><br/>
 

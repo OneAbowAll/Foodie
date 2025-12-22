@@ -11,7 +11,10 @@ export function StringList({list, onAdd, onDelete, multiline = false}:{list: str
         if(newName.trim() !== "")
             onAdd(newName);
             
-        input.current!.value = "";
+        if(multiline)
+            multilineInput.current!.value=""
+        else
+            input.current!.value = "";
     };
 
     const deleteElement = (id:number)=>{
@@ -19,18 +22,17 @@ export function StringList({list, onAdd, onDelete, multiline = false}:{list: str
     };
     
     return <div>
+        <div className="method-div">
+            {
+                multiline
+                ?<textarea id="newElement" ref={multilineInput} rows={5}  cols={50} ></textarea>
+                :<input type="text" id="newElement" ref={input}></input>
+            }<button onClick={() => { addElement(); } }>+</button>
+        </div>
         <span>
-        {
-            multiline
-            ?<textarea id="newElement" ref={multilineInput} rows={5}  cols={50} ></textarea>
-            :<input type="text" id="newElement" ref={input}></input>
-        }<button onClick={() => { addElement(); } }>+</button>
-        </span>
-        <br/>
-        <span>
-            <ol>
+            <ol id="stringlist-list">
             {list.map((value, index) =>
-                            <li>
+                            <li key={index} id="stringlist-element">
                             <IngredientItem
                                 id={index}
                                 name={value}

@@ -1,10 +1,10 @@
-import { addDoc, and, collection, deleteDoc, doc, getDoc,  onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc,  onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { firebaseApp } from "../firebase/Firebase";
 import type { Recipe, RecipeDb } from "../data/Recipe";
 import { useEffect, useState } from "react";
 import FindAndRankAll from "../Utilities";
 
-export function useRecipes() : [Recipe[], (queryText: string) => void, (sort: string)=>void]
+export function useRecipes(authorUID: string = "") : [Recipe[], (queryText: string) => void, (sort: string)=>void]
 {
     const [recipes, setRecipeList] = useState<Recipe[]>([]);
     const [search, setSearch] = useState("");
@@ -13,7 +13,11 @@ export function useRecipes() : [Recipe[], (queryText: string) => void, (sort: st
     useEffect(()=>{
         const collectionRef = collection(firebaseApp.db, "Recipes");
 
-        const q = query(collectionRef, (sortType === "latest")?orderBy('dateOfCreation', 'desc'):orderBy('likes', 'desc'))
+        let q;
+        if(authorUID === "")
+            q = query(collectionRef, (sortType === "latest")?orderBy('dateOfCreation', 'desc'):orderBy('likes', 'desc'))
+        else
+            q = query(collectionRef, where("author", "==", authorUID))
 
         const unsub = onSnapshot(q, (snapshot)=>
         {
@@ -33,7 +37,7 @@ export function useRecipes() : [Recipe[], (queryText: string) => void, (sort: st
         });
 
         return () => unsub();
-    }, [search, sortType]);
+    }, [authorUID, search, sortType]);
 
     const setSearchValue = (queryText: string) =>
     {
@@ -51,7 +55,7 @@ export function useRecipes() : [Recipe[], (queryText: string) => void, (sort: st
     return [ recipes, setSearchValue, setSorting ];
 }
 
-export function useRecipe(id: string = "") : [Recipe | undefined, (recipe: RecipeDb) => void, () => void]
+export function useRecipe(id: string = "") : [Recipe | undefined, (recipe: RecipeDb) => Promise<string>, () => void]
 {
     const [recipeId, setRecipeId] = useState<string>(id);
     const [recipe, setRecipe] = useState<Recipe | undefined>(undefined);
@@ -65,7 +69,11 @@ export function useRecipe(id: string = "") : [Recipe | undefined, (recipe: Recip
             const docSnap = await getDoc(docRef);
 
             if(docSnap.exists())
-                setRecipe(docSnap.data() as Recipe);
+            {
+                const data = docSnap.data();
+                const r = {id: docSnap.id ,...data};
+                setRecipe(r as Recipe);
+            }
         }
 
         if(recipeId != "")
@@ -73,14 +81,16 @@ export function useRecipe(id: string = "") : [Recipe | undefined, (recipe: Recip
 
     }, [recipeId]);
 
-    const createRecipe = async (recipe: RecipeDb)=>
+    const createRecipe = async (newRecipe: RecipeDb)=>
     {
+        console.log(newRecipe)
         if(recipe !== undefined) return;
 
         const collectionRef = collection(firebaseApp.db, "Recipes");
-        const docRef = await addDoc(collectionRef, recipe);
+        const docRef = await addDoc(collectionRef, newRecipe);
 
         setRecipeId(docRef.id);
+        return docRef.id;
     };
 
     const deleteRecipe = async() =>{
