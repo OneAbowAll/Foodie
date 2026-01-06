@@ -21,10 +21,10 @@ export function SignUp()
     const handleSignIn = ()=>
     {
         const username = usernameInput.current!.value;
-        if(username.trim() === "" || username.length < 6)
+        if(username.trim() === "" || username.length < 4)
         {
             AnimateCSS(errorElement.current!, "headShake");
-            setError("Provided username is not valid, must be at least 6 chars.");
+            setError("Provided username is not valid, must be at least 4 chars.");
             return;
         }
 

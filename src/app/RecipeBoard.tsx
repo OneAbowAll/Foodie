@@ -5,14 +5,18 @@ import { useRecipes } from "./RecipeHooks";
 
 export function RecipeBoard()
 {
-  const [recipeList, setSearch, setSortType] = useRecipes();
+  const [recipeList, loading, setSearch, setSortType] = useRecipes();
   
   return (
     <><Header onSearch={setSearch} onSortChange={setSortType} />
       <div className="container recipe-board">
           <div id="board">
           {
-            recipeList.map((recipe)=><RecipeCard key={recipe.id} recipe={recipe}/>)
+            loading
+            ? <b>Loading...</b>
+            : recipeList.length > 0
+              ? recipeList.map((recipe)=><RecipeCard key={recipe.id} recipe={recipe}/>)
+              : <b>Found nothing.</b>
           }
         </div>
       </div>

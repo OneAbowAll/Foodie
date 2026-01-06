@@ -6,12 +6,8 @@ export function RecipeCard({recipe} : {recipe: Recipe})
     const navigate = useNavigate();
 
     return <div className='container recipe-card' onClick={()=>navigate(`/${recipe.id}`)}>
-        <p>{recipe.id} | {recipe.title}</p>
-        <p><b>Ingredients: </b> {recipe.ingredients} </p>
-        <p>❤️{recipe.likes} </p>
-        <hr/>
-        <div>{recipe.method}</div>
-        
+        <p>{recipe.title} by {recipe.authorName}</p>
+        <p>{recipe.likesCount} ❤️</p>
         <div className="footer"><hr/>{recipe.dateOfCreation.toDate().toDateString()}</div>
     </div>
 }

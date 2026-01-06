@@ -14,7 +14,7 @@ export function ProfilePage()
 
     return (
     <>
-        <div className="container">
+    <div className="container">
             <button onClick={()=>navigate('/')}>«</button>
             <h2>Account's Info</h2>
             <ul>
@@ -23,12 +23,15 @@ export function ProfilePage()
             </ul>
         </div>
         <div className="container recipe-board">
+            <h2>Le tue ricette</h2>
             <div id="board">
             {
-            recipeList.map((recipe)=><RecipeCard key={recipe.id} recipe={recipe}/>)
+            recipeList.length == 0 
+            ?   <p><b> Non hai ancora scritto una ricetta :( </b></p>
+            : recipeList.map((recipe)=><RecipeCard key={recipe.id} recipe={recipe}/>)
             }
         </div>
-        </div>
+    </div>
     </>
     );
     }

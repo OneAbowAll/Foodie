@@ -8,7 +8,7 @@ import { StringList } from "./StringList";
 export function RecipeCreate()
 {
     const navigate = useNavigate();
-    const [recipe, createNew] = useRecipe();
+    const [recipe, , createNew] = useRecipe();
     
     const [ingredients, setIngredients] = useState<string[]>([]);
     const [steps, setSteps] = useState<string[]>([]);
@@ -30,8 +30,11 @@ export function RecipeCreate()
             ingredients: ingredients,
             method: steps,
 
-            likes: 0,
-            dateOfCreation: Timestamp.now()
+            likesCount: 0,
+            likes: [],
+            dateOfCreation: Timestamp.now(),
+            authorUID: "",
+            authorName: ""
         }
 
         console.log("creando...");

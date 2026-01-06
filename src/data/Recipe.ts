@@ -8,10 +8,14 @@ export interface Recipe
     ingredients: string[];
     method: string[];
 
-    likes: number;
+    likesCount: number;
+    likes: string[];
     dateOfCreation: Timestamp;
     
-    author: string;
+    didYouLikeIt: boolean;
+
+    authorName: string;
+    authorUID: string;
 }
 
 export interface RecipeDb
@@ -20,8 +24,10 @@ export interface RecipeDb
     ingredients: string[];
     method: string[];
 
-    likes: number;
+    likesCount: number;
+    likes: string[];
     dateOfCreation: Timestamp;
 
-    author: string;
+    authorName: string;
+    authorUID: string;
 }

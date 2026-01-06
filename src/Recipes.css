@@ -13,8 +13,8 @@
 
 .recipe-card
 {
-  min-width: 220px;
-  min-height: 300px;
+  min-width: 220px !important;
+  min-height: 150px;
   padding: 2px 10px 2px 10px;
 }
 
@@ -103,9 +103,18 @@
   box-shadow: rgb(0, 0, 0, 20%) 5px 5px;
 }
 
-.method-div{
+.method-div
+{
     display: flex;
+    flex-direction: column;
     align-items: center;
+
+    max-width: 80%;
+}
+
+.method-input-div{
+    display: flex;
+    justify-content: center;
 }
 
 #stringlist-list
@@ -113,6 +122,7 @@
     background-color: #7b8664;
     border-radius: 4px;
     box-shadow: rgb(0, 0, 0, 20%) 5px 5px;
+
 }
 
 #stringlist-element
@@ -122,4 +132,12 @@
     border-right-style: hidden;
     border-bottom-style: dashed;
     border-left-style: hidden;
+
+    padding: 10px;
+}
+
+.stringlist-element-content
+{
+  display: flex;
+  flex-direction: row;
 }

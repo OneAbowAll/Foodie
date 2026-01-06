@@ -5,6 +5,18 @@ export function StringList({list, onAdd, onDelete, multiline = false}:{list: str
     const input = useRef<HTMLInputElement>(null);
     const multilineInput = useRef<HTMLTextAreaElement>(null);
 
+     const onKeyUp = (e: React.KeyboardEvent) => {
+        const newName = (multiline)? multilineInput.current!.value:input.current!.value;
+
+        if (newName.trim() === "") {
+            return;
+        }
+
+        if (e.key === "Enter") {
+            addElement();
+        }
+    }
+
     const addElement = () =>{
         
         const newName = (multiline)? multilineInput.current!.value:input.current!.value;
@@ -21,12 +33,12 @@ export function StringList({list, onAdd, onDelete, multiline = false}:{list: str
         onDelete(id);
     };
     
-    return <div>
-        <div className="method-div">
+    return <div className="method-div">
+        <div className="method-input-div">
             {
                 multiline
-                ?<textarea id="newElement" ref={multilineInput} rows={5}  cols={50} ></textarea>
-                :<input type="text" id="newElement" ref={input}></input>
+                ?<textarea id="newElement" ref={multilineInput} rows={5}  cols={50} onKeyUp={onKeyUp} ></textarea>
+                :<input type="text" id="newElement" ref={input} onKeyUp={onKeyUp}></input>
             }<button onClick={() => { addElement(); } }>+</button>
         </div>
         <span>
@@ -46,11 +58,11 @@ export function StringList({list, onAdd, onDelete, multiline = false}:{list: str
 }
 
 function IngredientItem({id, name, onDelete} : {id: number, name: string, onDelete: (itemId: number)=>void}){
-    return <>
+    return <span className="stringlist-element-content">
     <span>
         {name}
     </span>
     <button onClick={()=>onDelete(id)}>&times;</button>
     <br/>
-    </>;
+    </span>;
 }
