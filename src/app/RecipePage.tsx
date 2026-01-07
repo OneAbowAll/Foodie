@@ -20,8 +20,8 @@ export function RecipePage()
                 <hr/>
                 <div>
                 <ol >
-                    {recipe.method.map((value)=>
-                    <li className="recipe-method">{value}</li>
+                    {recipe.method.map((value, index)=>
+                    <li className="recipe-method" key={index}>{value}</li>
                 )}</ol> 
                 </div>
                 
@@ -40,8 +40,8 @@ export function RecipePage()
                 <div>
                     <b>Ingredients: </b><br/>
                     <ul id="stringlist-list">
-                        {recipe.ingredients.map((value)=>
-                        <li>{value}</li>
+                        {recipe.ingredients.map((value, index)=>
+                        <li key={index}>{value}</li>
                     )}</ul> 
                 </div>
 
