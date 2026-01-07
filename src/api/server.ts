@@ -1,9 +1,23 @@
 import express, { json } from "express";
 import cors from "cors";
-import { collection, doc, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
-import { firebaseApp } from "../firebase/Firebase";
+import { collection, doc, getDoc, getDocs, getFirestore, orderBy, query, where } from "firebase/firestore";
 import type { Recipe } from "../data/Recipe";
 import FindAndRankAll from "../Utilities";
+import { initializeApp } from "firebase/app";
+
+import dotenv  from "dotenv";
+dotenv.config();
+
+const firebaseConfig = {
+  apiKey: process.env.VITE_API_KEY,
+  authDomain: process.env.VITE_AUTH_DOMAIN,
+  projectId: process.env.VITE_PROJECT_ID,
+  storageBucket: process.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: process.env.VITE_MESSAGING_SENDER_ID,
+  appId: process.env.VITE_APP_ID
+};
+const firebaseApp = initializeApp(firebaseConfig);
+const firebaseAppDb = getFirestore(firebaseApp);
 
 const app = express();
 const PORT = 1234;
@@ -16,7 +30,7 @@ app.use("/api", api);
 
 api.get("/recipes", async (req, res) =>
 {
-    const collectionRef = collection(firebaseApp.db, "Recipes");
+    const collectionRef = collection(firebaseAppDb, "Recipes");
 
     let authorUID = req.query.author;
     authorUID ??= "";
@@ -55,7 +69,7 @@ api.get("/recipes", async (req, res) =>
 
 api.get("/recipes/:id", async (req, res) =>
 {
-    const db = firebaseApp.db;
+    const db = firebaseAppDb;
     const recipeId = req.params.id;
     const currentUser = req.query.currentUser as string | undefined;
 
