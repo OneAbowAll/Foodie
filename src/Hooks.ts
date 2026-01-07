@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import type { Recipe } from "./data/Recipe";
 
 //Tmp local storage until firestore
 function getItem<T>(key: string, initialValue: T): T {
@@ -24,11 +23,26 @@ export function useLocalStorage<T>(
 
     useEffect(() => {
         localStorage.setItem(key, JSON.stringify(item));
-    }, [item]);
+    }, [item, key]);
 
     return [item, setItem];
 }
 
+export function useOnlineStatus()
+{
+    const [online, setOnline] = useState<boolean>(navigator.onLine);
+
+    useEffect(()=>
+    {
+        window.addEventListener('online', ()=>setOnline(true));
+        window.addEventListener('offline', ()=>setOnline(false));
+    }, []);
+
+    return online;
+}
+
+
+/*
 export function useDb() : [Recipe[], (newRecipe: Recipe) => void, (modifiedRecipe: Recipe)=>void, (recipeId: number) => Recipe | undefined]
 {
     const [nextId, setNewId] = useLocalStorage<number>("id", 2);
@@ -67,3 +81,4 @@ export function useDb() : [Recipe[], (newRecipe: Recipe) => void, (modifiedRecip
     
     return [db, addNewRecipe, updateRecipe, findRecipe];
 }
+*/

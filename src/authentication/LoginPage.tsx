@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useContext, useRef, useState } from "react";
 import { FirebaseContext } from "../firebase/FirebaseContext";
 import { useNavigate } from "react-router";

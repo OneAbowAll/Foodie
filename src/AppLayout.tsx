@@ -1,15 +1,10 @@
 import { Outlet } from "react-router";
-import { RecipeContext } from "./app/RecipeContext";
-import { useDb } from "./Hooks";
 
 
 export default function AppLayout()
 {
-    const [db ] = useDb();
-
+    //In teoria questa cosa non mi serve piu', pero' la lascio nel caso debba mettere qualche Context.
     return (
-    <RecipeContext.Provider value={db}>
-        <Outlet/>
-    </RecipeContext.Provider>
+    <Outlet/>
     );
 }

@@ -4,7 +4,6 @@ import { collection, doc, getDoc, getDocs, orderBy, query, where } from "firebas
 import { firebaseApp } from "../firebase/Firebase";
 import type { Recipe } from "../data/Recipe";
 import FindAndRankAll from "../Utilities";
-import type RecipeDb from "../data/Recipe";
 
 const app = express();
 const PORT = 1234;

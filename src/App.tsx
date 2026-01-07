@@ -11,10 +11,11 @@ import { SignUp } from './authentication/SignUpPage';
 import AppLayout from './AppLayout';
 import { RecipePage } from './app/RecipePage';
 import { RecipeBoard } from './app/RecipeBoard';
-import { useLocalStorage } from './Hooks';
 import { AuthContext } from './authentication/AuthContext';
 import { RecipeCreate } from './app/RecipeCreate';
 import { ProfilePage } from './app/ProfilePage';
+import { useLocalStorage, useOnlineStatus } from './Hooks';
+import { OfflinePage } from './OfflinePage';
 
 function App() {
 
@@ -28,30 +29,35 @@ function App() {
       setUser(u);
     }
   );
+
+  const isOnline = useOnlineStatus();
+  console.log(isOnline);
   
   return (
     <AuthContext.Provider value={user}>
       <BrowserRouter>
         <Routes>
           { 
-          user !== null?
-          <Route element={<AppLayout/>}>
-            <Route index path="/" element={<RecipeBoard/>}/>
-            <Route index path="/:id" element={<RecipePage/>}/>
-            <Route index path="/create" element={<RecipeCreate/>}/>
-            <Route index path="/account" element={<ProfilePage/>}/>
-          </Route>
-          :
-          <Route>
-            <Route path="/" element={<LoginPage/>}/>
-            <Route path="/login" element={<LoginPage/>}/>
-            <Route path="/signup" element={<SignUp/>} />
-          </Route>
+          !isOnline 
+          ? <Route><Route path='*' element={<OfflinePage/>}/></Route> 
+          : user !== null?
+            <Route element={<AppLayout/>}>
+              <Route index path="/" element={<RecipeBoard/>}/>
+              <Route index path="/:id" element={<RecipePage/>}/>
+              <Route index path="/create" element={<RecipeCreate/>}/>
+              <Route index path="/account" element={<ProfilePage/>}/>
+            </Route>
+            :
+            <Route>
+              <Route path="/" element={<LoginPage/>}/>
+              <Route path="/login" element={<LoginPage/>}/>
+              <Route path="/signup" element={<SignUp/>} />
+            </Route>
           }
         </Routes>
       </BrowserRouter>
     </AuthContext.Provider>
-  )
+  );
 }
 
 export default App
