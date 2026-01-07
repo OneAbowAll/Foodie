@@ -37,7 +37,7 @@ export function StringList({list, onAdd, onDelete, multiline = false}:{list: str
         <div className="method-input-div">
             {
                 multiline
-                ?<textarea id="newElement" ref={multilineInput} rows={5}  cols={50} onKeyUp={onKeyUp} ></textarea>
+                ?<textarea id="newElement" ref={multilineInput} rows={10}  cols={80} onKeyUp={onKeyUp} ></textarea>
                 :<input type="text" id="newElement" ref={input} onKeyUp={onKeyUp}></input>
             }<button onClick={() => { addElement(); } }>+</button>
         </div>
