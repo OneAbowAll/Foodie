@@ -37,7 +37,6 @@ export function RecipeCreate()
             authorName: ""
         }
 
-        console.log("creando...");
         createNew(newRecipe);
     };
 
@@ -53,7 +52,7 @@ export function RecipeCreate()
         setSteps((i) =>[...i, newStep]);
     };
 
-    const deletStep = (id:number)=>{
+    const deleteStep = (id:number)=>{
         setSteps((i)=>i.filter((_, index) => index !== id));
     };
 
@@ -67,7 +66,7 @@ export function RecipeCreate()
         <StringList list={ingredients} onAdd={addIngredient} onDelete={deleteIngredient}/><br/>
 
         <h3>Explain your process step by step</h3>
-        <StringList list={steps} onAdd={addStep} onDelete={deletStep} multiline={true}/><br/><br/>
+        <StringList list={steps} onAdd={addStep} onDelete={deleteStep} multiline={true}/><br/><br/>
 
         <button onClick={()=>{createNewRecipe()}}> Create new </button>
     </div>

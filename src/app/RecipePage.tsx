@@ -15,24 +15,26 @@ export function RecipePage()
         {
         (recipe !== undefined)?
         <div className="recipe-page">
+            
             <div className="container recipe-main">
-                <h1>{recipe.title}</h1> 
+                <h1>{recipe.title}</h1>
                 <hr/>
                 <div>
-                <ol >
-                    {recipe.method.map((value, index)=>
-                    <li className="recipe-method" key={index}>{value}</li>
-                )}</ol> 
+                    <ol>
+                        {recipe.method.map((value, index)=>
+                        <li className="recipe-method" key={index}>{value}</li>
+                    )}
+                    </ol> 
                 </div>
-                
-                <div className="container">
-                    {recipe.dateOfCreation.toDate().toDateString()} | Made by: {recipe.authorName}
                     
-                    {
-                        recipe.authorUID === firebaseApp.auth.currentUser?.uid 
-                        ? <button onClick={()=>{ deleteRecipe(); navigate('/'); } } title="Delete recipe.">💣</button>
-                        : ""
-                    }
+                <div className="container">
+                        {recipe.dateOfCreation.toDate().toDateString()} | Made by: {recipe.authorName}
+                        
+                        {
+                            recipe.authorUID === firebaseApp.auth.currentUser?.uid 
+                            ? <button onClick={()=>{ deleteRecipe(); navigate('/'); } } title="Delete recipe.">💣</button>
+                            : ""
+                        }
                 </div>
             </div>
 
@@ -40,9 +42,8 @@ export function RecipePage()
                 <div>
                     <b>Ingredients: </b><br/>
                     <ul id="stringlist-list">
-                        {recipe.ingredients.map((value, index)=>
-                        <li key={index}>{value}</li>
-                    )}</ul> 
+                        { recipe.ingredients.map((value, index)=> <li key={index}>{value}</li>) }
+                    </ul> 
                 </div>
 
                 <div className="container recipepage-likes">
@@ -53,7 +54,6 @@ export function RecipePage()
 
         </div>
         :
-        
         <p>
             {loading? <b>Loading...</b> : <b className="error">No object with id:{params.id} was found.</b>}
         </p>

@@ -37,13 +37,16 @@ export function StringList({list, onAdd, onDelete, multiline = false}:{list: str
         <div className="method-input-div">
             {
                 multiline
-                ?<textarea id="newElement" ref={multilineInput} rows={10}  cols={80} onKeyUp={onKeyUp} ></textarea>
-                :<input type="text" id="newElement" ref={input} onKeyUp={onKeyUp}></input>
-            }<button onClick={() => { addElement(); } }>+</button>
+                ? <textarea id="newElement" ref={multilineInput} rows={10}  cols={80} onKeyUp={onKeyUp} ></textarea>
+                : <input type="text" id="newElement" ref={input} onKeyUp={onKeyUp}></input>
+            }
+            <button onClick={() => addElement()}>+</button>
         </div>
+
         <span>
             <ol id="stringlist-list">
-            {list.map((value, index) =>
+            {
+                list.map((value, index) =>
                             <li key={index} id="stringlist-element">
                             <IngredientItem
                                 id={index}
@@ -54,15 +57,18 @@ export function StringList({list, onAdd, onDelete, multiline = false}:{list: str
             }
             </ol>
         </span>
+
     </div>
 }
 
 function IngredientItem({id, name, onDelete} : {id: number, name: string, onDelete: (itemId: number)=>void}){
-    return <span className="stringlist-element-content">
-    <span>
-        {name}
+    return (
+    <span className="stringlist-element-content">
+        <span>
+            {name}
+        </span>
+        <button onClick={()=>onDelete(id)}>&times;</button>
+        <br/>
     </span>
-    <button onClick={()=>onDelete(id)}>&times;</button>
-    <br/>
-    </span>;
+    );
 }

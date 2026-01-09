@@ -18,7 +18,8 @@ export type Recipe =
     authorUID: string;
 }
 
-export type RecipeDb =
+//le ricette quando le ritiro dal db o le invio al db.
+export type RecipeDb = 
 {
     title: string;
     ingredients: string[];

@@ -34,12 +34,14 @@ export function LoginPage()
     return(
         <>
         <h1 className="text-outline">Foodie</h1>
+        
         <div className="container auth-container">
             <input type="text" ref={emailInput} placeholder="Email"></input><br/>
             <input type="password" ref={passwordInput} placeholder="Password"></input><br/>
             <button onClick={handleSignIn}>Log In</button><br/>
             <p>Dont have an account? <a onClick={()=>navigate("/signup")}>Sign Up</a></p>
         </div>
+
         <div className="container auth-container" hidden={(error==="") ? true : false}>
             <p className="error" ref={errorElement}>
                 {error}

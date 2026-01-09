@@ -37,7 +37,7 @@ function App() {
     <AuthContext.Provider value={user}>
       <BrowserRouter>
         <Routes>
-          { 
+          {
           !isOnline 
           ? <Route><Route path='*' element={<OfflinePage/>}/></Route> 
           : user !== null?

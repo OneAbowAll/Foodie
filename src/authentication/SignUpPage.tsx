@@ -49,6 +49,7 @@ export function SignUp()
     return(
         <>
         <h1 className="text-outline">Foodie</h1>
+
         <div className="container auth-container">
             <input type="text" ref={usernameInput} placeholder="Username"></input><br/>
             <input type="text" ref={emailInput} placeholder="Email"></input><br/>
@@ -56,6 +57,7 @@ export function SignUp()
             <button onClick={handleSignIn}>Sign Up</button><br/>
             <p>Already have an account? <a onClick={()=>navigate("/login")}>Log In</a></p>
         </div>
+
         <div className="container auth-container" hidden={(error==="") ? true : false}>
             <p className="error" ref={errorElement}>
                 {error}

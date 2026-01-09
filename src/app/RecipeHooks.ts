@@ -52,7 +52,6 @@ export function useRecipes(authorUID: string = "") : [Recipe[], boolean, (queryT
     const setSorting = (sort: string) =>
     {
         if(sort !== "latest" && sort !== "likes") return;
-
         setSortType(sort);
     }
 
