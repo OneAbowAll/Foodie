@@ -30,8 +30,6 @@ function FindAndRankAll(from:Recipe[], titleToMatch:string, filter: ((rank: numb
             result.push([element, rank]);
     }
 
-    console.log(result);
-
     return result.sort((a, b)=>b[1]-a[1]).map((res)=>res[0]);
 }
 

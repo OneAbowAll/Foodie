@@ -16,6 +16,7 @@ import { RecipeCreate } from './app/RecipeCreate';
 import { ProfilePage } from './app/ProfilePage';
 import { useLocalStorage, useOnlineStatus } from './Hooks';
 import { OfflinePage } from './OfflinePage';
+import { RecipeEdit } from './app/RecipeEdit';
 
 function App() {
 
@@ -31,7 +32,6 @@ function App() {
   );
 
   const isOnline = useOnlineStatus();
-  console.log(isOnline);
   
   return (
     <AuthContext.Provider value={user}>
@@ -45,6 +45,7 @@ function App() {
               <Route index path="/" element={<RecipeBoard/>}/>
               <Route index path="/:id" element={<RecipePage/>}/>
               <Route index path="/create" element={<RecipeCreate/>}/>
+              <Route index path="/edit/:id" element={<RecipeEdit/>}/>
               <Route index path="/account" element={<ProfilePage/>}/>
             </Route>
             :

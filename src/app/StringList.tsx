@@ -1,6 +1,6 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
-export function StringList({list, onAdd, onDelete, multiline = false}:{list: string[], onAdd: (newIngredient:string)=>void, onDelete: (id: number)=>void, multiline?: boolean})
+export function StringList({list, onAdd, onUpdate, onDelete, multiline = false}:{list: string[], onAdd: (newIngredient:string)=>void, onUpdate: (id: number, newValue: string)=>void, onDelete: (id: number)=>void, multiline?: boolean})
 {
     const input = useRef<HTMLInputElement>(null);
     const multilineInput = useRef<HTMLTextAreaElement>(null);
@@ -28,16 +28,12 @@ export function StringList({list, onAdd, onDelete, multiline = false}:{list: str
         else
             input.current!.value = "";
     };
-
-    const deleteElement = (id:number)=>{
-        onDelete(id);
-    };
     
     return <div className="method-div">
         <div className="method-input-div">
             {
                 multiline
-                ? <textarea id="newElement" ref={multilineInput} rows={10}  cols={80} onKeyUp={onKeyUp} ></textarea>
+                ? <textarea id="newElement" ref={multilineInput} rows={10}  cols={80} onKeyUp={onKeyUp}></textarea>
                 : <input type="text" id="newElement" ref={input} onKeyUp={onKeyUp}></input>
             }
             <button onClick={() => addElement()}>+</button>
@@ -51,7 +47,9 @@ export function StringList({list, onAdd, onDelete, multiline = false}:{list: str
                             <IngredientItem
                                 id={index}
                                 name={value}
-                                onDelete={deleteElement}/>
+                                updateItem={onUpdate}
+                                onDelete={onDelete}
+                                multiline={multiline}/>
                             </li>
                         )
             }
@@ -61,12 +59,34 @@ export function StringList({list, onAdd, onDelete, multiline = false}:{list: str
     </div>
 }
 
-function IngredientItem({id, name, onDelete} : {id: number, name: string, onDelete: (itemId: number)=>void}){
+function IngredientItem({id, name, onDelete, updateItem, multiline = false} : {id: number, name: string, onDelete: (itemId: number)=>void, updateItem: (itemId:number, newValue: string)=>void, multiline?: boolean})
+{
+    const [editMode, setEditMode] = useState<boolean>(false);
+
+    const editInput = useRef<HTMLInputElement>(null);
+    const editMultilineInput = useRef<HTMLTextAreaElement>(null);
+
+    const toggleEdit = ()=>{
+        if(!editMode)
+            setEditMode(true);
+        else
+        {
+            setEditMode(false);
+            const newName = (multiline)? editMultilineInput.current!.value:editInput.current!.value;
+            updateItem(id, newName);
+        }
+    }
+
     return (
     <span className="stringlist-element-content">
-        <span>
-            {name}
-        </span>
+        {
+            !editMode
+            ? <span>{name}</span>
+            : multiline
+                ? <textarea id="newElement" ref={editMultilineInput} rows={10}  cols={80} defaultValue={name}></textarea>
+                : <input ref={editInput} id="newElement" defaultValue={name} />
+        }
+        <button onClick={() => {toggleEdit()}}>{ editMode? "✅" : "✏️" }</button>
         <button onClick={()=>onDelete(id)}>&times;</button>
         <br/>
     </span>

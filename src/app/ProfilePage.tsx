@@ -14,17 +14,17 @@ export function ProfilePage()
 
     return (
     <>
+    <button onClick={()=>navigate('/')}>«</button>
     <div className="container">
-            <button onClick={()=>navigate('/')}>«</button>
-            <h2>Account's Info</h2>
-            <ul>
-                <li>DisplayName: {userSession?.displayName}</li>
-                <li>Email: {userSession?.email}</li>
-            </ul>
-        </div>
-        <div className="container recipe-board">
-            <h2>Le tue ricette</h2>
-            <div id="board">
+        <h2>Account's Info</h2>
+        <ul>
+            <li>DisplayName: {userSession?.displayName}</li>
+            <li>Email: {userSession?.email}</li>
+        </ul>
+    </div>
+    <div className="container recipe-board">
+        <h2>Le tue ricette</h2>
+        <div id="board">
             {
             recipeList.length == 0 
             ?   <p><b> Non hai ancora scritto una ricetta :( </b></p>

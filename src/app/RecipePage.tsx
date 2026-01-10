@@ -7,7 +7,7 @@ export function RecipePage()
     const navigate = useNavigate();
 
     const params = useParams();
-    const [recipe, loading, , deleteRecipe, toggleLike] = useRecipe(params.id!);
+    const [recipe, loading, , , deleteRecipe, toggleLike] = useRecipe(params.id!);
     
     return (
     <div>
@@ -32,7 +32,10 @@ export function RecipePage()
                         
                         {
                             recipe.authorUID === firebaseApp.auth.currentUser?.uid 
-                            ? <button onClick={()=>{ deleteRecipe(); navigate('/'); } } title="Delete recipe.">💣</button>
+                            ? <div>
+                                <button onClick={()=>{ navigate(`/edit/${recipe.id}`); } } title="Edit recipe.">✏️</button>
+                                <button onClick={()=>{ deleteRecipe(); navigate('/'); } } title="Delete recipe.">💣</button>
+                             </div> 
                             : ""
                         }
                 </div>

@@ -58,7 +58,7 @@ export function useRecipes(authorUID: string = "") : [Recipe[], boolean, (queryT
     return [ recipes, loading, setSearchValue, setSorting ];
 }
 
-export function useRecipe(id: string = "") : [Recipe | undefined, boolean, (recipe: RecipeDb) => void, () => void, () => void]
+export function useRecipe(id: string = "") : [Recipe | undefined, boolean, (recipe: RecipeDb) => void, (recipe: Recipe) => void, () => void, () => void]
 {
     const [recipeId, setRecipeId] = useState<string>(id);
     const [loading, setLoading] = useState<boolean>(true);
@@ -80,7 +80,6 @@ export function useRecipe(id: string = "") : [Recipe | undefined, boolean, (reci
                     dateOfCreation: new Timestamp(data.dateOfCreation.seconds, data.dateOfCreation.nanoseconds)      
                 } as Recipe;
                 
-                console.log(r);
                 setRecipe(r);
             }
             finally
@@ -127,6 +126,17 @@ export function useRecipe(id: string = "") : [Recipe | undefined, boolean, (reci
         setRecipeId(docRef.id);
     };
 
+    const editRecipe = async (newRecipe: Recipe)=>
+    {
+        if(recipe === undefined) return;
+        
+        const recipeDb = newRecipe as RecipeDb;
+        const docRef = doc(firebaseApp.db, "Recipes", recipe.id);
+
+        await setDoc(docRef, recipeDb)
+        setRecipe(newRecipe);
+    };
+
     const deleteRecipe = async() =>
     {
         if(recipe === undefined) return;
@@ -148,20 +158,16 @@ export function useRecipe(id: string = "") : [Recipe | undefined, boolean, (reci
             
             const likeList = recipe.likes.filter((el)=> el !== firebaseApp.auth.currentUser!.uid );
             await setDoc(docRef, {...recipeDb, likes: likeList, likesCount: likeList.length })
-            .then(()=>{
-                setRecipe({...recipe, likes: likeList, likesCount: likeList.length, didYouLikeIt: false})
-            })
+            setRecipe({...recipe, likes: likeList, likesCount: likeList.length, didYouLikeIt: false})
         }
         else //Like it
         {
             const docRef = doc(firebaseApp.db, "Recipes", recipe.id);
             const likeList = [...recipe.likes, firebaseApp.auth.currentUser!.uid];
             await setDoc(docRef, {...recipeDb, likes: likeList, likesCount: likeList.length })
-            .then(()=>{
-                setRecipe({...recipe, likes: likeList, likesCount: likeList.length, didYouLikeIt: true})
-            })
+            setRecipe({...recipe, likes: likeList, likesCount: likeList.length, didYouLikeIt: true})
         }
     };
 
-    return [ recipe, loading, createRecipe, deleteRecipe, toggleLike ];
+    return [ recipe, loading, createRecipe, editRecipe, deleteRecipe, toggleLike ];
 }
